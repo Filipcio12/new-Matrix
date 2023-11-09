@@ -46,6 +46,11 @@ struct Matrix::rcMatrix {
 			return this;
 		}
 		rcMatrix* m = new rcMatrix(rows, cols);
+		for (size_t i = 0; i < rows; ++i) {
+			for (size_t j = 0; j < cols; ++j) {
+				m->arr[i][j] = arr[i][j];
+			}
+		}
 		rc--;
 		return m;
 	};
@@ -78,7 +83,7 @@ Matrix::~Matrix()
 	}
 }
 
-double Matrix::operator()(size_t row, size_t col) const
+double Matrix::operator()(size_t row, size_t col) const // read only
 {
 	if (data->rows >= row && data->cols >= col) {
 		return data->arr[row][col];
@@ -88,9 +93,10 @@ double Matrix::operator()(size_t row, size_t col) const
 	}
 }
 
-double& Matrix::operator()(size_t row, size_t col)
+double& Matrix::operator()(size_t row, size_t col) // write only
 {
 	if (data->rows >= row && data->cols >= col) {
+		data = data->detach();
 		return data->arr[row][col];
 	}
 	else {

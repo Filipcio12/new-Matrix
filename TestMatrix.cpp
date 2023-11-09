@@ -8,9 +8,10 @@ int main()
 	a(0, 0) = 1;
 	a(0, 1) = 1;
 
-	Matrix b(2, 2);
-	b(1, 0) = 1;
-	b(1, 1) = 1;
+	Matrix b = a;
+	
+	a(1, 0) = 1;
+	a(1, 1) = 1;
 
 	std::cout << a << std::endl <<  b << std::endl;
 
