@@ -8,6 +8,7 @@ struct Matrix::rcMatrix {
 	
 	rcMatrix()
 	{
+		rc = 1;
 		rows = 0;
 		cols = 0;
 		arr = NULL;
@@ -15,6 +16,7 @@ struct Matrix::rcMatrix {
 	
 	rcMatrix(size_t rows, size_t cols)
 	{
+		rc = 1;
 		this->rows = rows;
 		this->cols = cols;
 		arr = new double*[rows];
@@ -32,7 +34,7 @@ struct Matrix::rcMatrix {
 	
 	~rcMatrix()
 	{
-		for (unsigned int i = 0; i < rows; ++i) {
+		for (size_t i = 0; i < rows; ++i) {
 			delete[] arr[i];
 		}
 		delete[] arr;
@@ -65,19 +67,8 @@ Matrix::Matrix(size_t rows, size_t cols)
 
 Matrix::Matrix(const Matrix& m)
 {
-	data->rows = m.data->rows;
-	data->cols = m.data->cols;
-	data->arr = new double*[rows];
-	
-	for (size_t i = 0; i < rows; ++i) {
-        arr[i] = new double[cols];
-    }
-    
-    for (size_t i = 0; i < rows; ++i) {
-        for (size_t j = 0; j < cols; ++j) {
-            arr[i][j] = m.data->arr[i][j];
-        }
-    }
+	m.data->rc++;
+	data = m.data;
 }
 
 Matrix::~Matrix()
@@ -87,9 +78,24 @@ Matrix::~Matrix()
 	}
 }
 
-double Matrix::operator()(size_t row, size_t col)
+double Matrix::operator()(size_t row, size_t col) const
 {
-	if (data
+	if (data->rows >= row && data->cols >= col) {
+		return data->arr[row][col];
+	}
+	else {
+		throw InvalidRangeException();
+	}
+}
+
+double& Matrix::operator()(size_t row, size_t col)
+{
+	if (data->rows >= row && data->cols >= col) {
+		return data->arr[row][col];
+	}
+	else {
+		throw InvalidRangeException();
+	}
 }
 
 std::ostream& operator<<(std::ostream& os, const Matrix& m)
@@ -97,7 +103,13 @@ std::ostream& operator<<(std::ostream& os, const Matrix& m)
 	size_t rows = m.data->rows;
 	size_t cols = m.data->cols;
 	
-	
+	for (size_t i = 0; i < rows; ++i) {
+        for (size_t j = 0; j < cols; ++j) {
+            os << m(i, j) << "\t";
+        }
+        os << "\n";
+    }
+    return os;
 }
 
 
