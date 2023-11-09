@@ -19,7 +19,7 @@ struct Matrix::rcMatrix {
 		this->cols = cols;
 		arr = new double*[rows];
 		
-		for (size_t i = 0; i < m; ++i) {
+		for (size_t i = 0; i < rows; ++i) {
 			arr[i] = new double[cols];
 		}
 
@@ -40,11 +40,11 @@ struct Matrix::rcMatrix {
 	
 	rcMatrix* detach()
 	{
-		if (n == 1) {
+		if (rc == 1) {
 			return this;
 		}
 		rcMatrix* m = new rcMatrix(rows, cols);
-		n--;
+		rc--;
 		return m;
 	};
 	
@@ -60,14 +60,14 @@ Matrix::Matrix()
 
 Matrix::Matrix(size_t rows, size_t cols)
 {
-	data = new rcMatrix(size_t rows, size_t cols);
+	data = new rcMatrix(rows, cols);
 }
 
 Matrix::Matrix(const Matrix& m)
 {
-	rows = m.data->rows;
-	cols = m.data->cols;
-	arr = new double*[rows];
+	data->rows = m.data->rows;
+	data->cols = m.data->cols;
+	data->arr = new double*[rows];
 	
 	for (size_t i = 0; i < rows; ++i) {
         arr[i] = new double[cols];
@@ -85,6 +85,19 @@ Matrix::~Matrix()
 	if (--data->rc == 0) {
 		delete data;
 	}
+}
+
+double Matrix::operator()(size_t row, size_t col)
+{
+	if (data
+}
+
+std::ostream& operator<<(std::ostream& os, const Matrix& m)
+{
+	size_t rows = m.data->rows;
+	size_t cols = m.data->cols;
+	
+	
 }
 
 
