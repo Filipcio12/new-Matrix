@@ -16,6 +16,12 @@ void testConstructor()
 	Matrix a;
 	std::cout << a << std::endl;
 
+	try {
+		a(0, 0);
+	} catch(Matrix::InvalidRangeException) {
+		std::cout << "Indices out of range\n";
+	}
+
 	// Size constructor
 	Matrix b(5, 5);
 	std::cout << b << std::endl;

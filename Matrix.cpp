@@ -95,7 +95,7 @@ Matrix& Matrix::operator=(const Matrix& m)
 
 double Matrix::operator()(size_t row, size_t col) const // read only
 {
-	if (data->rows >= row && data->cols >= col) {
+	if (data->rows > row && data->cols > col) {
 		return data->arr[row][col];
 	}
 	else {
@@ -105,7 +105,7 @@ double Matrix::operator()(size_t row, size_t col) const // read only
 
 double& Matrix::operator()(size_t row, size_t col) // write only
 {
-	if (data->rows >= row && data->cols >= col) {
+	if (data->rows > row && data->cols > col) {
 		data = data->detach();
 		return data->arr[row][col];
 	}
