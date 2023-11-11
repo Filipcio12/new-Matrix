@@ -83,6 +83,16 @@ Matrix::~Matrix()
 	}
 }
 
+Matrix& Matrix::operator=(const Matrix& m)
+{
+	if (--data->rc == 0) {
+		delete data;
+	}
+	m.data->rc++;
+	data = m.data;
+	return *this;
+}
+
 double Matrix::operator()(size_t row, size_t col) const // read only
 {
 	if (data->rows >= row && data->cols >= col) {
@@ -117,9 +127,3 @@ std::ostream& operator<<(std::ostream& os, const Matrix& m)
     }
     return os;
 }
-
-
-
-
-
-

@@ -2,18 +2,25 @@
 
 #include <iostream>
 
+void testConstructor();
+
 int main()
 {
-	Matrix a(2, 2);
-	a(0, 0) = 1;
-	a(0, 1) = 1;
-
-	Matrix b = a;
-	
-	a(1, 0) = 1;
-	a(1, 1) = 1;
-
-	std::cout << a << std::endl <<  b << std::endl;
-
+	testConstructor();
 	return 0;
+}
+
+void testConstructor()
+{
+	// Default constructor
+	Matrix a;
+	std::cout << a << std::endl;
+
+	// Size constructor
+	Matrix b(5, 5);
+	std::cout << b << std::endl;
+
+	// Copy constructor
+	Matrix c = b;
+	std::cout << c << std::endl; 
 }
