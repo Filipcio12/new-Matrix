@@ -99,7 +99,7 @@ double Matrix::operator()(size_t row, size_t col) const // read only
 		return data->arr[row][col];
 	}
 	else {
-		throw InvalidRangeException();
+		throw InvalidRange();
 	}
 }
 
@@ -110,7 +110,7 @@ double& Matrix::operator()(size_t row, size_t col) // write only
 		return data->arr[row][col];
 	}
 	else {
-		throw InvalidRangeException();
+		throw InvalidRange();
 	}
 }
 

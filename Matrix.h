@@ -7,7 +7,8 @@ class Matrix {
 	rcMatrix* data;
 	
 	public:
-		class InvalidRangeException {};
+		class InvalidRange {};
+		class InvalidAddition {};
 		Matrix();
 		Matrix(size_t rows, size_t cols);
 		Matrix(const Matrix& m);
