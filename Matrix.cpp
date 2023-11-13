@@ -139,6 +139,18 @@ Matrix Matrix::operator+(const Matrix& m) const
     return sum;
 }
 
+void incrementSize(std::string* text, size_t& size)
+{
+	size_t nSize = (size + 1) * 2;
+	std::string* newText = new std::string[nSize];
+	for (size_t i = 0; i < size; ++i) {
+		newText[i] = text[i];
+	}
+	delete[] text;
+	text = newText;
+	size = nSize;
+}
+
 std::string* readText(std::istream& is, size_t& size)
 {
 	size = 0;
@@ -152,27 +164,27 @@ std::string* readText(std::istream& is, size_t& size)
 			break;
 		}
 		if (size == maxSize) {
-			size_t newMaxSize = (maxSize + 1) * 2;
-			std::string* newText = new std::string[newMaxSize];
-			for (size_t i = 0; i < size; ++i) {
-				newText[i] = text[i];
-			}
-			delete[] text;
-			text = newText;
-			maxSize = newMaxSize;
+			incrementSize(text, maxSize);
 		}
 		text[size++] = line;
 	}
 
-	std::string* newText = new std::string[size];
-	for (size_t i = 0; i < size; ++i) {
-		newText[i] = text[i];
+	return text;
+}
+
+size_t countTokens(std::string line, const char delim[])
+{
+	size_t num = 0;
+
+	char* str = (char*)line.c_str();
+	char* token = strtok(str, delim);
+
+	while (token != NULL) {
+		num++;
+		token = strtok(NULL, delim);
 	}
 
-	delete[] text;
-	text = newText;
-
-	return text;
+	return num;
 }
 
 std::istream& operator>>(std::istream& is, Matrix& m)
@@ -185,18 +197,8 @@ std::istream& operator>>(std::istream& is, Matrix& m)
 	size_t rows = 0;
 	std::string* text = readText(is, rows);
 
-	// Let's first tokenize the first string
-	std::string line = text[0];
-	char* str = (char*)line.c_str();
 	const char delim[] = " \n";
-	char* token = strtok(str, delim);
-
-	size_t cols = 0;
-
-	while(token != NULL) {
-		cols++;
-		token = strtok(NULL, delim);
-	}
+	size_t cols = countTokens(text[0], delim);
 
 	Matrix newM(rows, cols);
 
@@ -205,7 +207,6 @@ std::istream& operator>>(std::istream& is, Matrix& m)
 
 		std::string line = text[i];
 		char* str = (char*)line.c_str();
-		const char delim[] = " \n";
 		char* token = strtok(str, delim);
 
 		while (token != NULL) {
@@ -222,7 +223,8 @@ std::istream& operator>>(std::istream& is, Matrix& m)
 			throw Matrix::InvalidRead();
 		}
 	}
-
+	
+	delete[] text;
 	m = newM;
 	return is;
 }

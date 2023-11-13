@@ -33,7 +33,8 @@ class Matrix {
 
 	// Reading from input file stream
 		friend std::istream& operator>>(std::istream& is, Matrix& m);
-	
-	private:
-		std::string* readText(std::istream& is);
 };
+
+std::string* readText(std::istream& is, size_t& size);
+void incrementSize(std::string* text, size_t& size);
+size_t countTokens(std::string line, const char delim[]);
