@@ -1,11 +1,13 @@
 #include "Matrix.h"
 
 #include <iostream>
+#include <fstream>
 
 void testDefaultConstructor();
 void testConstructor();
 void testCopyConstructor();
 void testAssignment();
+void testInputFile();
 
 int main()
 {
@@ -13,7 +15,36 @@ int main()
 	testConstructor();
 	testCopyConstructor();
 	testAssignment();
+	testInputFile();
 	return 0;
+}
+
+void testInputFile()
+{
+	std::fstream testFile;
+	testFile.open("testFile.txt", std::ios::in);
+
+	Matrix a;
+	testFile >> a;
+	testFile.close();
+
+	size_t value = 1;
+	for (size_t i = 0; i < 2; ++i) {
+		for (size_t j = 0; j < 3; ++j) {
+			try {
+				if (a(i, j) != value) {
+					std::cout << "Input file stream: Failed" << std::endl;
+					return;
+				}
+			} catch(Matrix::InvalidRange) {
+				std::cout << "Input file stream: Failed" << std::endl;
+				return;
+			}
+			value++;
+		}
+	}
+
+	std::cout << "Input file stream: Passed" << std::endl;
 }
 
 void testAssignment()
