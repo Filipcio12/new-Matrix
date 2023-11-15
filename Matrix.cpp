@@ -113,7 +113,7 @@ void Matrix::write(size_t row, size_t col, double val)
 	}
 }
 
-double Matrix::operator()(size_t row, size_t col) const // read only
+double Matrix::operator()(size_t row, size_t col) const
 {
 	if (data->rows > row && data->cols > col) {
 		return data->arr[row][col];
@@ -122,11 +122,10 @@ double Matrix::operator()(size_t row, size_t col) const // read only
 	}
 }
 
-double& Matrix::operator()(size_t row, size_t col) // write only
+Matrix::DoubleRef Matrix::operator()(size_t row, size_t col)
 {
 	if (data->rows > row && data->cols > col) {
-		data = data->detach();
-		return data->arr[row][col];
+		return DoubleRef(*this, row, col);
 	} else {
 		throw InvalidRange();
 	}

@@ -82,7 +82,7 @@ void testCopyConstructor()
 	try {
 		for (size_t i = 0; i < 2; i++) {
 			for (size_t j = 0; j < 2; ++j) {
-				if (b.read(i, j) != 0) {
+				if (b(i, j) != 0) {
 					std::cout << "Copy constructor: Failed" << std::endl;
 					return;
 				}
