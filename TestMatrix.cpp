@@ -8,15 +8,21 @@ void testConstructor();
 void testCopyConstructor();
 void testAssignment();
 void testInputFile();
+void testAddition();
 
 int main()
 {
-	testDefaultConstructor();
-	testConstructor();
+	//testDefaultConstructor();
+	//testConstructor();
 	testCopyConstructor();
-	testAssignment();
-	testInputFile();
+	//testAssignment();
+	//testInputFile();
 	return 0;
+}
+
+void testAddition()
+{
+	Matrix a, b;
 }
 
 void testInputFile()
@@ -76,7 +82,7 @@ void testCopyConstructor()
 	try {
 		for (size_t i = 0; i < 2; i++) {
 			for (size_t j = 0; j < 2; ++j) {
-				if (b(i, j) != 0) {
+				if (b.read(i, j) != 0) {
 					std::cout << "Copy constructor: Failed" << std::endl;
 					return;
 				}

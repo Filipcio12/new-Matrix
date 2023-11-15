@@ -94,6 +94,25 @@ Matrix& Matrix::operator=(const Matrix& m)
 	return *this;
 }
 
+double Matrix::read(size_t row, size_t col) const
+{
+	if (data->rows > row && data->cols > col) {
+		return data->arr[row][col];
+	} else {
+		throw InvalidRange();
+	}
+}
+
+void Matrix::write(size_t row, size_t col, double val)
+{
+	if (data->rows > row && data->cols > col) {
+		data = data->detach();
+		data->arr[row][col] = val;
+	} else {
+		throw InvalidRange();
+	}
+}
+
 double Matrix::operator()(size_t row, size_t col) const // read only
 {
 	if (data->rows > row && data->cols > col) {

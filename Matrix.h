@@ -22,6 +22,8 @@ class Matrix {
 		Matrix& operator=(const Matrix& m);
 		
 	// Access operators
+		double read(size_t row, size_t col) const;
+		void write(size_t row, size_t col, double val);
 		double operator()(size_t row, size_t col) const;
 		double& operator()(size_t row, size_t col);
 	
