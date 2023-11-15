@@ -33,6 +33,7 @@ class Matrix {
 	
 	// Arithmetic operators
 		Matrix operator+(const Matrix& m) const;
+		Matrix& operator+=(const Matrix& m);
 
 	// Reading from input file stream
 		friend std::istream& operator>>(std::istream& is, Matrix& m);

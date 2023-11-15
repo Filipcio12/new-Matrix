@@ -157,6 +157,19 @@ Matrix Matrix::operator+(const Matrix& m) const
     return sum;
 }
 
+Matrix& Matrix::operator+=(const Matrix& m) 
+{
+	if (data->rows != m.data->rows || data->cols != m.data->cols) {
+        throw InvalidAddition();
+    }
+    for (size_t i = 0; i < data->rows; ++i) {
+        for (size_t j = 0; j < data->cols; ++j) {
+            data->arr[i][j] += m(i, j);
+        }
+    }
+    return *this;
+}
+
 void incrementSize(std::string* text, size_t& size)
 {
 	size_t nSize = (size + 1) * 2;
