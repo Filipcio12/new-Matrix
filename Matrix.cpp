@@ -145,7 +145,7 @@ std::ostream& operator<<(std::ostream& os, const Matrix& m)
 Matrix Matrix::operator+(const Matrix& m) const
 {
 	if (data->rows != m.data->rows || data->cols != m.data->cols) {
-		throw InvalidAddition();
+		throw InvalidSum();
 	}
 
 	Matrix sum = *this;
@@ -160,7 +160,7 @@ Matrix Matrix::operator+(const Matrix& m) const
 Matrix& Matrix::operator+=(const Matrix& m) 
 {
 	if (data->rows != m.data->rows || data->cols != m.data->cols) {
-        throw InvalidAddition();
+        throw InvalidSum();
     }
     for (size_t i = 0; i < data->rows; ++i) {
         for (size_t j = 0; j < data->cols; ++j) {
@@ -173,7 +173,7 @@ Matrix& Matrix::operator+=(const Matrix& m)
 Matrix Matrix::operator-(const Matrix& m) const
 {
 	if (data->rows != m.data->rows || data->cols != m.data->cols) {
-		throw InvalidAddition();
+		throw InvalidSum();
 	}
 
 	Matrix diff = *this;
@@ -188,13 +188,37 @@ Matrix Matrix::operator-(const Matrix& m) const
 Matrix& Matrix::operator-=(const Matrix& m) 
 {
 	if (data->rows != m.data->rows || data->cols != m.data->cols) {
-        throw InvalidAddition();
+        throw InvalidSum();
     }
     for (size_t i = 0; i < data->rows; ++i) {
         for (size_t j = 0; j < data->cols; ++j) {
             data->arr[i][j] -= m(i, j);
         }
     }
+    return *this;
+}
+
+Matrix Matrix::operator*(const Matrix& m) const
+{
+    if (data->cols != m.data->rows) {
+        throw InvalidProduct();
+    }
+    Matrix prod(data->rows, m.data->cols);
+    for (size_t i = 0; i < prod.data->rows; ++i) {
+        for (size_t j = 0; j < prod.data->cols; ++j) {
+            double elem = 0;
+            for (size_t k = 0; k < data->cols; ++k) {
+                elem += data->arr[i][k] * m.read(k, j);
+            }
+            prod(i, j) = elem;
+        }
+    }
+    return prod;
+}
+
+Matrix& Matrix::operator*=(const Matrix& m)
+{
+    *this = *this * m;
     return *this;
 }
 

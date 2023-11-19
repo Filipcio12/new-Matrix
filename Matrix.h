@@ -9,7 +9,8 @@ class Matrix {
 	public:
 	// Exceptions
 		class InvalidRange {};
-		class InvalidAddition {};
+		class InvalidSum {};
+		class InvalidProduct {};
 		class InvalidRead {};
 
 	// Constructors and destructor
