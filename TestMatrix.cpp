@@ -10,6 +10,8 @@ void testCopyConstructor();
 void testAssignment();
 void testInputFile();
 void testAddition();
+void testSubtraction();
+void testMultiplication();
 
 int main()
 {
@@ -19,7 +21,9 @@ int main()
 	testCopyConstructor();
 	testAssignment();
 	testInputFile();
-	//testAddition();
+	testAddition();
+	testSubtraction();
+	testMultiplication();
 	return 0;
 }
 
@@ -78,6 +82,27 @@ void testInputFile()
 
 void testAddition()
 {
+	std::cout << "Addition:" << std::endl;
+	double a[2][2] = {
+		{1, 2},
+		{2, 1}
+	};
+	double b[2][2] = {
+		{1, 0},
+		{0, 1}
+	};
+	Matrix matA = processArray(a);
+	Matrix matB = processArray(b);
+	std::cout << matA + matB << std::endl;
+
+	std::cout << "Addition assignment:" << std::endl;
+	matA += matB;
+	std::cout << matA << std::endl;
+}
+
+void testSubtraction()
+{
+	std::cout << "Subtraction:" << std::endl;
 	double a[2][2] = {
 		{1, 2},
 		{2, 1}
@@ -89,6 +114,29 @@ void testAddition()
 	Matrix matA = processArray(a);
 	Matrix matB = processArray(b);
 	std::cout << matA - matB << std::endl;
-	matA += matB;
-	std::cout << matA;
+
+	std::cout << "Subtraction assignment:" << std::endl;
+	matA -= matB;
+	std::cout << matA << std::endl;
+}
+
+void testMultiplication()
+{
+	std::cout << "Multiplication:" << std::endl;
+	double a[2][3] = {
+		{1, 2, 3},
+		{4, 5, 6}
+	};
+	double b[3][4] = {
+		{12, 11, 10, 9},
+		{8, 7, 6, 5},
+		{4, 3, 2, 1},
+	};
+	Matrix matA = processArray(a);
+	Matrix matB = processArray(b);
+	std::cout << matA * matB << std::endl;
+
+	std::cout << "Multiplication assignment:" << std::endl;
+	matA *= matB;
+	std::cout << matA << std::endl;
 }
