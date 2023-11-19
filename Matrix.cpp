@@ -134,7 +134,7 @@ Matrix::DoubleRef Matrix::operator()(size_t row, size_t col)
 std::ostream& operator<<(std::ostream& os, const Matrix& m)
 {	
 	for (size_t i = 0; i < m.data->rows; ++i) {
-        for (size_t j = 0; j < m.data->rows; ++j) {
+        for (size_t j = 0; j < m.data->cols; ++j) {
             os << m(i, j) << "\t";
         }
         os << "\n";
