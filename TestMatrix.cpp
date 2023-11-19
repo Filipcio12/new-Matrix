@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 
+// Functionality
 void testProcessArray();
 void testDefaultConstructor();
 void testConstructor();
@@ -12,6 +13,11 @@ void testInputFile();
 void testAddition();
 void testSubtraction();
 void testMultiplication();
+void testComparison();
+
+// Exceptions
+
+// Reference counting
 
 int main()
 {
@@ -24,6 +30,7 @@ int main()
 	testAddition();
 	testSubtraction();
 	testMultiplication();
+	testComparison();
 	return 0;
 }
 
@@ -139,4 +146,21 @@ void testMultiplication()
 	std::cout << "Multiplication assignment:" << std::endl;
 	matA *= matB;
 	std::cout << matA << std::endl;
+}
+
+void testComparison()
+{
+	std::cout << "Comparison:" << std::endl;
+	double a[2][3] = {
+		{1, 2, 3},
+		{4, 5, 6}
+	};
+	double b[2][3] = {
+		{1, 2, 3},
+		{4, 5, 6}
+	};
+	Matrix matA = processArray(a);
+	Matrix matB = processArray(b);
+	std::cout << "(a == b) = " << (matA == matB) << std::endl;
+	std::cout << "(a != b) = " << (matA != matB) << std::endl;
 }

@@ -222,6 +222,32 @@ Matrix& Matrix::operator*=(const Matrix& m)
     return *this;
 }
 
+bool Matrix::operator==(const Matrix& m) const
+{
+	if (data == m.data) {
+		return true;
+	}
+
+	if (data->rows != m.data->rows || data->cols != m.data->cols) {
+		return false;
+	}
+
+	for (size_t i = 0; i < data->rows; ++i) {
+		for (size_t j = 0; j < data->cols; ++j) {
+			if (data->arr[i][j] != m.data->arr[i][j]) {
+				return false;
+			}
+		}
+	}
+
+	return true;
+}
+
+bool Matrix::operator!=(const Matrix& m) const
+{
+	return !(*this == m);
+}
+
 void incrementSize(std::string* text, size_t& size)
 {
 	size_t nSize = (size + 1) * 2;
@@ -306,7 +332,7 @@ std::istream& operator>>(std::istream& is, Matrix& m)
 			throw Matrix::InvalidRead();
 		}
 	}
-	
+
 	delete[] text;
 	m = newM;
 	return is;

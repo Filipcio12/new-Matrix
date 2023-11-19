@@ -40,6 +40,10 @@ class Matrix {
 		Matrix operator*(const Matrix& m) const;
 		Matrix& operator*=(const Matrix& m);
 
+	// Logic operators
+		bool operator==(const Matrix& m) const;
+		bool operator!=(const Matrix& m) const;
+
 	// Reading from input file stream
 		friend std::istream& operator>>(std::istream& is, Matrix& m);
 };
