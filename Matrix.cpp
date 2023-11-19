@@ -208,7 +208,7 @@ Matrix Matrix::operator*(const Matrix& m) const
         for (size_t j = 0; j < prod.data->cols; ++j) {
             double elem = 0;
             for (size_t k = 0; k < data->cols; ++k) {
-                elem += data->arr[i][k] * m.read(k, j);
+                elem += data->arr[i][k] * m(k, j);
             }
             prod(i, j) = elem;
         }
