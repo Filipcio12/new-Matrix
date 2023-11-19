@@ -13,24 +13,67 @@ void testAddition();
 
 int main()
 {
-	//testProcessArray();
-	//testDefaultConstructor();
-	//testConstructor();
-	//testCopyConstructor();
-	//testAssignment();
-	//testInputFile();
-	testAddition();
+	testProcessArray();
+	testDefaultConstructor();
+	testConstructor();
+	testCopyConstructor();
+	testAssignment();
+	testInputFile();
+	//testAddition();
 	return 0;
 }
 
 void testProcessArray()
 {
+	std::cout << "Function processArray():" << std::endl;
 	double arr[2][2] = {
-		{1, 2},
-		{2, 1}
+		{1.2, 2.7},
+		{-2, 1.3}
 	};
 	Matrix a = processArray(arr);
-	std::cout << a;
+	std::cout << a << std::endl;
+}
+
+void testDefaultConstructor()
+{
+	std::cout << "Default constructor:" << std::endl;
+	Matrix a;
+	std::cout << a << std::endl;
+}
+
+void testConstructor()
+{
+	std::cout << "Size constructor:" << std::endl;
+	Matrix a(2, 2);
+	std::cout << a << std::endl;
+}
+
+void testCopyConstructor()
+{
+	std::cout << "Copy constructor:" << std::endl;
+	Matrix a(2, 2);
+	Matrix b(a);
+	std::cout << b << std::endl;
+}
+
+void testAssignment()
+{
+	std::cout << "Assignment:" << std::endl;
+	Matrix a(2, 2);
+	Matrix b(3, 1);
+	b = a;
+	std::cout << b << std::endl;
+}
+
+void testInputFile()
+{
+	std::cout << "Input file:" << std::endl;
+	std::fstream testFile;
+	testFile.open("testFile.txt", std::ios::in);
+	Matrix a;
+	testFile >> a;
+	testFile.close();
+	std::cout << a << std::endl;
 }
 
 void testAddition()
@@ -48,109 +91,4 @@ void testAddition()
 	std::cout << matA - matB << std::endl;
 	matA += matB;
 	std::cout << matA;
-}
-
-void testInputFile()
-{
-	std::fstream testFile;
-	testFile.open("testFile.txt", std::ios::in);
-
-	Matrix a;
-	testFile >> a;
-	testFile.close();
-
-	size_t value = 1;
-	for (size_t i = 0; i < 2; ++i) {
-		for (size_t j = 0; j < 3; ++j) {
-			try {
-				if (a(i, j) != value) {
-					std::cout << "Input file stream: Failed" << std::endl;
-					return;
-				}
-			} catch(Matrix::InvalidRange) {
-				std::cout << "Input file stream: Failed" << std::endl;
-				return;
-			}
-			value++;
-		}
-	}
-
-	std::cout << "Input file stream: Passed" << std::endl;
-}
-
-void testAssignment()
-{
-	Matrix a(2, 2);
-	Matrix b;
-	b = a;
-	try {
-		for (size_t i = 0; i < 2; i++) {
-			for (size_t j = 0; j < 2; ++j) {
-				if (b(i, j) != 0) {
-					std::cout << "Assignment operator: Failed" << std::endl;
-					return;
-				}
-			}
-		}
-	} catch(Matrix::InvalidRange) {
-		std::cout << "Assignment operator: Failed" << std::endl;
-		return;
-	}
-
-	std::cout << "Assignment operator: Passed" << std::endl;
-}
-
-void testCopyConstructor()
-{
-	Matrix a(2, 2);
-	Matrix b = a;
-	try {
-		for (size_t i = 0; i < 2; i++) {
-			for (size_t j = 0; j < 2; ++j) {
-				if (b(i, j) != 0) {
-					std::cout << "Copy constructor: Failed" << std::endl;
-					return;
-				}
-			}
-		}
-	} catch(Matrix::InvalidRange) {
-		std::cout << "Copy constructor: Failed" << std::endl;
-		return;
-	}
-
-	std::cout << "Copy constructor: Passed" << std::endl;
-}
-
-void testDefaultConstructor()
-{
-	Matrix a;
-	try {
-		a(0, 0);
-	}
-	catch(Matrix::InvalidRange) {
-		std::cout << "Default constructor: Passed" << std::endl;
-		return;
-	}
-	std::cout << "Default constructor: Passed" << std::endl;
-}
-
-void testConstructor()
-{
-	Matrix a(2, 2);
-
-	try {
-		for (size_t i = 0; i < 2; i++) {
-			for (size_t j = 0; j < 2; ++j) {
-				if (a(i, j) != 0) {
-					std::cout << "Constructor: Failed" << std::endl;
-					return;
-				}
-			}
-		}
-	} catch(Matrix::InvalidRange) {
-		std::cout << "Constructor: Failed" << std::endl;
-		return;
-	}
-
-	std::cout << "Constructor: Passed" << std::endl;
 }
