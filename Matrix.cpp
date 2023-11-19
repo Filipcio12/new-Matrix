@@ -151,7 +151,7 @@ Matrix Matrix::operator+(const Matrix& m) const
 	Matrix sum = *this;
 	for (size_t i = 0; i < data->rows; ++i) {
         for (size_t j = 0; j < data->cols; ++j) {
-            sum(i, j) += m(i, j);
+            sum(i, j) =  sum(i, j) + m(i, j);
         }
     }
     return sum;
@@ -165,6 +165,34 @@ Matrix& Matrix::operator+=(const Matrix& m)
     for (size_t i = 0; i < data->rows; ++i) {
         for (size_t j = 0; j < data->cols; ++j) {
             data->arr[i][j] += m(i, j);
+        }
+    }
+    return *this;
+}
+
+Matrix Matrix::operator-(const Matrix& m) const
+{
+	if (data->rows != m.data->rows || data->cols != m.data->cols) {
+		throw InvalidAddition();
+	}
+
+	Matrix diff = *this;
+	for (size_t i = 0; i < data->rows; ++i) {
+        for (size_t j = 0; j < data->cols; ++j) {
+            diff(i, j) = diff(i, j) - m(i, j);
+        }
+    }
+    return diff;
+}
+
+Matrix& Matrix::operator-=(const Matrix& m) 
+{
+	if (data->rows != m.data->rows || data->cols != m.data->cols) {
+        throw InvalidAddition();
+    }
+    for (size_t i = 0; i < data->rows; ++i) {
+        for (size_t j = 0; j < data->cols; ++j) {
+            data->arr[i][j] -= m(i, j);
         }
     }
     return *this;

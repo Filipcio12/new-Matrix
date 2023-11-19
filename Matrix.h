@@ -34,6 +34,10 @@ class Matrix {
 	// Arithmetic operators
 		Matrix operator+(const Matrix& m) const;
 		Matrix& operator+=(const Matrix& m);
+		Matrix operator-(const Matrix& m) const;
+		Matrix& operator-=(const Matrix& m);
+		Matrix operator*(const Matrix& m) const;
+		Matrix& operator*=(const Matrix& m);
 
 	// Reading from input file stream
 		friend std::istream& operator>>(std::istream& is, Matrix& m);
@@ -54,11 +58,6 @@ class Matrix::DoubleRef {
 		Matrix::DoubleRef& operator=(double d)
 		{
 			mat.write(row, col, d);
-			return *this;
-		}
-		Matrix::DoubleRef& operator+=(double d)
-		{
-			mat.write(row, col, mat.read(row, col) + d);
 			return *this;
 		}
 		Matrix::DoubleRef& operator=(const DoubleRef& ref)

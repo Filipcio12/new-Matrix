@@ -13,12 +13,13 @@ void testAddition();
 
 int main()
 {
-	testProcessArray();
+	//testProcessArray();
 	//testDefaultConstructor();
 	//testConstructor();
 	//testCopyConstructor();
 	//testAssignment();
 	//testInputFile();
+	testAddition();
 	return 0;
 }
 
@@ -34,7 +35,19 @@ void testProcessArray()
 
 void testAddition()
 {
-	Matrix a, b;
+	double a[2][2] = {
+		{1, 2},
+		{2, 1}
+	};
+	double b[2][2] = {
+		{1, 0},
+		{0, 1}
+	};
+	Matrix matA = processArray(a);
+	Matrix matB = processArray(b);
+	std::cout << matA - matB << std::endl;
+	matA += matB;
+	std::cout << matA;
 }
 
 void testInputFile()
