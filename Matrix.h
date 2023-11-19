@@ -67,6 +67,18 @@ class Matrix::DoubleRef {
 		}
 };
 
+template <std::size_t Rows, std::size_t Cols>
+Matrix processArray(double (&arr)[Rows][Cols])
+{
+	Matrix m(Rows, Cols);
+	for (size_t i = 0; i < Rows; ++i) {
+		for (size_t j = 0; j < Cols; ++j) {
+			m.write(i, j, arr[i][j]);
+		}
+	}
+	return m;
+}
+
 std::string* readText(std::istream& is, size_t& size);
 void incrementSize(std::string* text, size_t& size);
 size_t countTokens(std::string line, const char delim[]);

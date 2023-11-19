@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 
+void testProcessArray();
 void testDefaultConstructor();
 void testConstructor();
 void testCopyConstructor();
@@ -12,12 +13,23 @@ void testAddition();
 
 int main()
 {
+	testProcessArray();
 	//testDefaultConstructor();
 	//testConstructor();
-	testCopyConstructor();
+	//testCopyConstructor();
 	//testAssignment();
 	//testInputFile();
 	return 0;
+}
+
+void testProcessArray()
+{
+	double arr[2][2] = {
+		{1, 2},
+		{2, 1}
+	};
+	Matrix a = processArray(arr);
+	std::cout << a;
 }
 
 void testAddition()
