@@ -16,11 +16,15 @@ void testMultiplication();
 void testComparison();
 
 // Exceptions
+void testInvalidRange();
+void testInvalidSum();
+void testInvalidProduct();
 
 // Reference counting
 
 int main()
 {
+	// Functionality
 	testProcessArray();
 	testDefaultConstructor();
 	testConstructor();
@@ -31,7 +35,51 @@ int main()
 	testSubtraction();
 	testMultiplication();
 	testComparison();
+
+	// Exceptions
+	testInvalidRange();
+	testInvalidSum();
+	testInvalidProduct();
+
 	return 0;
+}
+
+void testInvalidProduct()
+{
+	std::cout << "InvalidProduct:" << std::endl;
+	Matrix a(3, 3);
+	Matrix b(4, 3);
+	try {
+		a * b;
+		std::cout << "not caught" << "\n\n";
+	} catch (Matrix::InvalidProduct) {
+		std::cout << "caught" << "\n\n";
+	}
+}
+
+void testInvalidSum()
+{
+	std::cout << "InvalidSum:" << std::endl;
+	Matrix a(3, 4);
+	Matrix b(4, 3);
+	try {
+		a + b;
+		std::cout << "not caught" << "\n\n";
+	} catch (Matrix::InvalidSum) {
+		std::cout << "caught" << "\n\n";
+	}
+}
+
+void testInvalidRange()
+{
+	std::cout << "InvalidRange:" << std::endl;
+	Matrix a(2, 2);
+	try {
+		a(2, 2);
+		std::cout << "not caught" << "\n\n";
+	} catch(Matrix::InvalidRange) {
+		std::cout << "caught" << "\n\n";
+	}
 }
 
 void testProcessArray()
@@ -162,5 +210,5 @@ void testComparison()
 	Matrix matA = processArray(a);
 	Matrix matB = processArray(b);
 	std::cout << "(a == b) = " << (matA == matB) << std::endl;
-	std::cout << "(a != b) = " << (matA != matB) << std::endl;
+	std::cout << "(a != b) = " << (matA != matB) << "\n\n";
 }
