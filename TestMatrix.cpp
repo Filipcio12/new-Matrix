@@ -22,6 +22,7 @@ void testInvalidProduct();
 void testInvalidRead();
 
 // Reference counting
+void testReferenceCounting();
 
 int main()
 {
@@ -43,7 +44,22 @@ int main()
 	testInvalidProduct();
 	testInvalidRead();
 
+	// Reference Counting
+	testReferenceCounting();
+
 	return 0;
+}
+
+void testReferenceCounting()
+{
+	std::cout << "Reference Counting" << std::endl;
+	Matrix a(3, 3);
+	Matrix b = a;
+	std::cout << b(0, 0) << std::endl;
+
+	// Change
+	//b(0, 0) = 1;
+	//std::cout << b(0, 0) << "\n\n";
 }
 
 void testInvalidRead()
