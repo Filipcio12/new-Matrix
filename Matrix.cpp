@@ -298,10 +298,7 @@ size_t countTokens(std::string line, const char delim[])
 
 std::istream& operator>>(std::istream& is, Matrix& m)
 {
-	// throws std::invalid_argument,
-	// std::out_of_range,
-	// Matrix::InvalidRead,
-	//
+	// std::stod throws invalid_argument or out_of_range
 
 	size_t rows = 0;
 	std::string* text = readText(is, rows);
@@ -320,15 +317,23 @@ std::istream& operator>>(std::istream& is, Matrix& m)
 
 		while (token != NULL) {
 			// Doing things with token
-			if (j + 1 > cols) {
+			if (j == cols) {
+				delete[] text;
 				throw Matrix::InvalidRead();
 			}
-			double element = std::stod(token);
+			double element = 0;
+			try {
+				element = std::stod(token);
+			} catch (std::invalid_argument const&) {
+				delete[] text;
+				throw Matrix::InvalidRead();
+			}
 			newM(i, j++) = element;
 			token = strtok(NULL, delim);
 		}
 
 		if (j != cols) {
+			delete[] text;
 			throw Matrix::InvalidRead();
 		}
 	}

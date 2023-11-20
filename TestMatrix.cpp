@@ -19,6 +19,7 @@ void testComparison();
 void testInvalidRange();
 void testInvalidSum();
 void testInvalidProduct();
+void testInvalidRead();
 
 // Reference counting
 
@@ -40,8 +41,24 @@ int main()
 	testInvalidRange();
 	testInvalidSum();
 	testInvalidProduct();
+	testInvalidRead();
 
 	return 0;
+}
+
+void testInvalidRead()
+{
+	std::cout << "InvalidRead:" << std::endl;
+	std::fstream invalidRead;
+	invalidRead.open("invalidRead.txt", std::ios::in);
+	Matrix a;
+	try {
+		invalidRead >> a;
+		std::cout << "not caught" << "\n\n";
+	} catch (Matrix::InvalidRead) {
+		std::cout << "caught" << "\n\n";
+	}
+	invalidRead.close();
 }
 
 void testInvalidProduct()
